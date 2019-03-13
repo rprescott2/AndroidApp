@@ -26,11 +26,15 @@ public class Level_1_Activity extends AppCompatActivity {
         Button checkLevel = (Button)findViewById(R.id.Check_Level_1);
         final EditText textLevel = (EditText)findViewById(R.id.Text_Level_1);
         final int[] numberSucces = {(words.size())};
+        final int[] xx = {0};
+        for(int x = 0; x < words.size()-1; x++){
+            xx[0]++;
+        }
         checkLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String text = textLevel.getText().toString();
-                    if(words.get(i[0]).equalsIgnoreCase(text)){
+                    if(i[0] == xx[0] & words.get(i[0]).equalsIgnoreCase(text)){
                         Toast.makeText(Level_1_Activity.this, "Вы прошли уровень 1", Toast.LENGTH_SHORT).show();
                     }
                      else if (words.get(i[0]).equalsIgnoreCase(text)) {
