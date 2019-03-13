@@ -9,6 +9,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Level_6_Activity">
+            <intent-filter>
+                <action android:name=".Level_6_Activity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Level_5_Activity" ><intent-filter>
+            <action android:name=".Level_5_Activity" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".Level_4_Activity" ><intent-filter>
+            <action android:name=".Level_4_Activity" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".Level_3_Activity" ><intent-filter>
+            <action android:name=".Level_3_Activity" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".Level_2_Activity" ><intent-filter>
+            <action android:name=".Level_2_Activity" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".Level_1_Activity" ><intent-filter>
+            <action android:name=".Level_1_Activity" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
