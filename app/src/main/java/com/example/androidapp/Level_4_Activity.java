@@ -1,5 +1,6 @@
 package com.example.androidapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,22 +25,37 @@ public class Level_4_Activity extends AppCompatActivity {
     private final static String FILE_NAME = "content.txt";
     FileOutputStream fos;
     FileInputStream fis;
-    int index;
     public void WriteComplete() {
         try {
-            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
             fis = openFileInput(FILE_NAME);
             byte[] bytes = new byte[fis.available()];
             fis.read(bytes);
             String text = new String(bytes);
-            text.replace("false4", "true4");
+
+            String[] text2 = text.split(" ");
+            for(int i = 0; i < text2.length; i++){
+                if(text2[i].contains("false4")){
+                    text2[i] = "true4";
+                }
+            }
+
+            text = "";
+            EditText ed = (EditText)findViewById(R.id.Text_Level_1);
+            for(int i = 0; i < text2.length; i++){
+                text = text +" " + text2[i];
+            }
+            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
             fos.write(text.getBytes());
-            fos.flush();
+            fis.close();
+            fos.close();
+            Intent intent = new Intent(Level_4_Activity.this, MainActivity.class);
+            intent.putExtra("STATUS", "true4");
+            startActivity(intent);
         } catch(FileNotFoundException e){
-            e.printStackTrace();
         } catch(IOException e){
             e.printStackTrace();
         }
+
     }
     ArrayList<String> words = new ArrayList<>();
     public void ButtonLevel1Activity(){
@@ -59,6 +75,7 @@ public class Level_4_Activity extends AppCompatActivity {
                 String text = textLevel.getText().toString();
                 if(i[0] == xx[0] & words.get(i[0]).equalsIgnoreCase(text)){
                     Toast.makeText(Level_4_Activity.this, "Вы прошли уровень 4", Toast.LENGTH_SHORT).show();
+                    WriteComplete();
                 }
                 else if (words.get(i[0]).equalsIgnoreCase(text)) {
                     Toast.makeText(Level_4_Activity.this, "Вы угадали", Toast.LENGTH_SHORT).show();

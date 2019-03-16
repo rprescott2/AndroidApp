@@ -1,8 +1,11 @@
 package com.example.androidapp;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.icu.util.IslamicCalendar;
+import android.os.Build;
+import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,11 +27,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Level_1_Activity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_1_);
+
         ButtonLevel1Activity();
     }
     private final static String FILE_NAME = "content.txt";
@@ -38,7 +41,10 @@ public class Level_1_Activity extends AppCompatActivity {
         try {
             fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
             fis = openFileInput(FILE_NAME);
-            fos.write("false1 false2  false3 false4 false5 false6".getBytes());
+            String str = getIntent().getExtras().getString("stat");
+            if(str.contains("true")) {
+                fos.write("false1 false2  false3 false4 false5 false6".getBytes());
+            }
             fos.flush();
                 byte[] bytes = new byte[fis.available()];
                 fis.read(bytes);
@@ -50,22 +56,20 @@ public class Level_1_Activity extends AppCompatActivity {
                     }
                 }
 
-            Button level1 = (Button) findViewById(R.id.Level1);
-            Button level2 = (Button) findViewById(R.id.Level2);
-            Button level3 = (Button) findViewById(R.id.Level3);
-            Button level4 = (Button) findViewById(R.id.Level4);
-            Button level5 = (Button) findViewById(R.id.Level5);
-            Button level6 = (Button) findViewById(R.id.Level6);
+                text = "";
             EditText ed = (EditText)findViewById(R.id.Text_Level_1);
-            ed.setText(text2[0]);
-           level1.setBackgroundColor(Color.GREEN);  /// почему то не окрашивается и вылетает с ошибкой
-            fos = openFileOutput(FILE_NAME, MODE_APPEND);
             for(int i = 0; i < text2.length; i++){
-                fos.write(text2[i].getBytes());
-                fos.flush();
+                text = text +" " + text2[i];
             }
+            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            fos.write(text.getBytes());
+            fos.flush();
+            fos.close();
+            fis.close();
+            Intent intent = new Intent(Level_1_Activity.this, MainActivity.class);
+            intent.putExtra("STATUS", "true1");
+            startActivity(intent);
             } catch(FileNotFoundException e){
-                e.printStackTrace();
             } catch(IOException e){
                 e.printStackTrace();
             }
@@ -88,9 +92,8 @@ public class Level_1_Activity extends AppCompatActivity {
             public void onClick(View v) {
                     String text = textLevel.getText().toString();
                     if (i[0] == xx[0] & words.get(i[0]).equalsIgnoreCase(text)) {
-
+                        Toast.makeText(Level_1_Activity.this, "Вы прошли уровень 1", Toast.LENGTH_SHORT).show();
                         WriteComplete();
-
                     } else if (words.get(i[0]).equalsIgnoreCase(text)) {
                         Toast.makeText(Level_1_Activity.this, "Вы угадали", Toast.LENGTH_SHORT).show();
                         i[0]++;
