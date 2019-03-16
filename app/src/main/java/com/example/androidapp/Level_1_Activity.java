@@ -43,7 +43,13 @@ public class Level_1_Activity extends AppCompatActivity {
                 byte[] bytes = new byte[fis.available()];
                 fis.read(bytes);
                 String text = new String(bytes);
-                text.replace("false1", "true1");
+                String[] text2 = text.split(" ");
+                for(int i = 0; i < text2.length; i++){
+                    if(text2[i].contains("false1")){
+                        text2[i] = "true1";
+                    }
+                }
+
             Button level1 = (Button) findViewById(R.id.Level1);
             Button level2 = (Button) findViewById(R.id.Level2);
             Button level3 = (Button) findViewById(R.id.Level3);
@@ -51,24 +57,13 @@ public class Level_1_Activity extends AppCompatActivity {
             Button level5 = (Button) findViewById(R.id.Level5);
             Button level6 = (Button) findViewById(R.id.Level6);
             EditText ed = (EditText)findViewById(R.id.Text_Level_1);
-            ed.setText(text);
-            for(int i = 0; i < 6; i++){
-                if(text.contains("true1")){
-                    level1.setBackgroundColor(Color.GREEN);
-                } else if(text.contains("true2")){
-                    level2.setBackgroundColor(Color.GREEN);
-                }else if(text.contains("true3")){
-                    level3.setBackgroundColor(Color.GREEN);
-                }else if(text.contains("true4")){
-                    level4.setBackgroundColor(Color.GREEN);
-                }else if(text.contains("true5")){
-                    level5.setBackgroundColor(Color.GREEN);
-                }else if(text.contains("true6")){
-                    level6.setBackgroundColor(Color.GREEN);
-                }
-            }
-                fos.write(text.getBytes());
+            ed.setText(text2[0]);
+           level1.setBackgroundColor(Color.GREEN);  /// почему то не окрашивается и вылетает с ошибкой
+            fos = openFileOutput(FILE_NAME, MODE_APPEND);
+            for(int i = 0; i < text2.length; i++){
+                fos.write(text2[i].getBytes());
                 fos.flush();
+            }
             } catch(FileNotFoundException e){
                 e.printStackTrace();
             } catch(IOException e){
