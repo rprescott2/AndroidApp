@@ -1,11 +1,16 @@
 package com.example.androidapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.method.KeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -40,23 +45,32 @@ public class MainActivity extends AppCompatActivity {
             Button level4 = (Button) findViewById(R.id.Level4);
             Button level5 = (Button) findViewById(R.id.Level5);
             Button level6 = (Button) findViewById(R.id.Level6);
+            FileOutputStream fos = openFileOutput(FILE_NAME, MODE_APPEND);
+            fos.write(" ".getBytes());
+            fos.flush();
+            fos.close();
             if (status.contains("true1")) {
                 level1.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                level1.setClickable(false);
+                level1.setEnabled(false);
+                level2.setEnabled(true);
             } else if (status.contains("true2")) {
-                level2.setClickable(false);
+                level2.setEnabled(false);
+                level3.setEnabled(true);
                 level2.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
             } else if (status.contains("true3")) {
-                level3.setClickable(false);
+                level3.setEnabled(false);
+                level4.setEnabled(true);
                 level3.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
             } else if (status.contains("true4")) {
-                level4.setClickable(false);
+                level4.setEnabled(false);
+                level5.setEnabled(true);
                 level4.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
             } else if (status.contains("true5")) {
-                level5.setClickable(false);
+                level5.setEnabled(false);
+                level6.setEnabled(true);
                 level5.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
             } else if (status.contains("true6")) {
-                level6.setClickable(false);
+                level6.setEnabled(false);
                 level6.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
             }
         }catch (Exception e){
@@ -76,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         Button level5 = (Button)findViewById(R.id.Level5);
         Button level6 = (Button)findViewById(R.id.Level6);
         try {
+
             fis = openFileInput(FILE_NAME);
             byte[] bytes = new byte[fis.available()];
             fis.read(bytes);
@@ -84,22 +99,27 @@ public class MainActivity extends AppCompatActivity {
             for(int i = 0; i < text2.length; i++){
                 if(text2[i].contains("true1")){
                     level1.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                    level1.setClickable(false);
+                    level1.setEnabled(false);
+                    level2.setEnabled(true);
                 } else if(text2[i].contains("true2")){
                     level2.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                    level2.setClickable(false);
+                    level2.setEnabled(false);
+                    level3.setEnabled(true);
                 }else if(text2[i].contains("true3")){
                     level3.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                    level3.setClickable(false);
+                    level3.setEnabled(false);
+                    level4.setEnabled(true);
                 }else if(text2[i].contains("true4")){
                     level4.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                    level4.setClickable(false);
+                    level4.setEnabled(false);
+                    level5.setEnabled(true);
                 }else if(text2[i].contains("true5")){
                     level5.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                    level5.setClickable(false);
+                    level5.setEnabled(false);
+                    level6.setEnabled(true);
                 }else if(text2[i].contains("true6")){
                     level6.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
-                    level6.setClickable(false);
+                    level6.setEnabled(false);
                 }
             }
             fis.close();
@@ -121,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent shift = new Intent(MainActivity.this, Level_1_Activity.class);
                 try {
+                    FileOutputStream fos = openFileOutput(FILE_NAME, MODE_APPEND);
+                    fos.write(" ".getBytes());
+                    fos.flush();
+                    fos.close();
                     fis = openFileInput(FILE_NAME);
                     byte[] bytes = new byte[fis.available()];
                     fis.read(bytes);

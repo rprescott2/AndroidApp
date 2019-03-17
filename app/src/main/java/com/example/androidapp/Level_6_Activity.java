@@ -1,11 +1,13 @@
 package com.example.androidapp;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -39,9 +41,9 @@ public class Level_6_Activity extends AppCompatActivity {
                 }
             }
 
-            text = "";
+            text = text2[0];
             EditText ed = (EditText)findViewById(R.id.Text_Level_1);
-            for(int i = 0; i < text2.length; i++){
+            for(int i = 1; i < text2.length; i++){
                 text = text +" " + text2[i];
             }
             fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
@@ -62,6 +64,7 @@ public class Level_6_Activity extends AppCompatActivity {
         final int[] i = {0};
         words.add("корова");
         words.add("снег");
+        words.add("пчела");
         Button checkLevel = (Button)findViewById(R.id.Check_Level_6);
         final EditText textLevel = (EditText)findViewById(R.id.Text_Level_6);
         final int[] numberSucces = {(words.size())};
@@ -69,16 +72,24 @@ public class Level_6_Activity extends AppCompatActivity {
         for(int x = 0; x < words.size()-1; x++){
             xx[0]++;
         }
+        final ImageView imageView = (ImageView)findViewById(R.id.Level6Image);
+        imageView.setImageResource(R.drawable.l11);
         checkLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String text = textLevel.getText().toString();
-                if(i[0] == xx[0] & words.get(i[0]).equalsIgnoreCase(text)){
+                if(i[0] == xx[0] & words.get(i[0]).contains(text)){
                     Toast.makeText(Level_6_Activity.this, "Вы прошли уровень 6", Toast.LENGTH_SHORT).show();
                     WriteComplete();
                 }
-                else if (words.get(i[0]).equalsIgnoreCase(text)) {
+                else if (words.get(i[0]).contains(text)) {
                     Toast.makeText(Level_6_Activity.this, "Вы угадали", Toast.LENGTH_SHORT).show();
+                    textLevel.setText("");
+                    if(i[0] == 0) {
+                        imageView.setImageResource(R.drawable.l12);
+                    } else if(i[0] == 1) {
+                        imageView.setImageResource(R.drawable.l13);
+                    }
                     i[0]++;
                 } else {
                     Toast.makeText(Level_6_Activity.this, "Вы не угадали", Toast.LENGTH_SHORT).show();

@@ -39,9 +39,9 @@ public class Level_5_Activity extends AppCompatActivity {
                 }
             }
 
-            text = "";
+            text = text2[0];
             EditText ed = (EditText)findViewById(R.id.Text_Level_1);
-            for(int i = 0; i < text2.length; i++){
+            for(int i = 1; i < text2.length; i++){
                 text = text +" " + text2[i];
             }
             fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
@@ -73,12 +73,13 @@ public class Level_5_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String text = textLevel.getText().toString();
-                if(i[0] == xx[0] & words.get(i[0]).equalsIgnoreCase(text)){
+                if(i[0] == xx[0] & words.get(i[0]).contains(text)){
                     Toast.makeText(Level_5_Activity.this, "Вы прошли уровень 5", Toast.LENGTH_SHORT).show();
                     WriteComplete();
                 }
-                else if (words.get(i[0]).equalsIgnoreCase(text)) {
+                else if (words.get(i[0]).contains(text)) {
                     Toast.makeText(Level_5_Activity.this, "Вы угадали", Toast.LENGTH_SHORT).show();
+                    textLevel.setText("");
                     i[0]++;
                 } else {
                     Toast.makeText(Level_5_Activity.this, "Вы не угадали", Toast.LENGTH_SHORT).show();
